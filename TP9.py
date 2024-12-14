@@ -285,14 +285,14 @@ class Fraction:
         """
         if not isinstance(self, Fraction) or not isinstance(other, Fraction):
             raise TypeError("It must be fractions")
+        
+        reduced_fraction1 = Fraction(self.numerator, self.denominator)
+        reduced_fraction2 = Fraction(other.numerator, other.denominator)
 
-    difference = abs(self - other)
-    print(f"Difference: {difference}")  # Debug print
+        diff1 = reduced_fraction1 - reduced_fraction2
+        diff2 = reduced_fraction2 - reduced_fraction1
 
-    result = difference.is_unit()
-    print(f"Is unit: {result}")  # Debug print
-
-    return result
+        return diff1.is_unit() or diff2.is_unit()
             
 
 class FractionTestCase(unittest.TestCase):
@@ -423,14 +423,14 @@ class FractionTestCase(unittest.TestCase):
         """Test the is_adjacent_to method"""
         f1 = Fraction(1, 2)
         f2 = Fraction(2, 3)
-        f3 = Fraction(1, 6)
-        f4 = Fraction(1, 3)
-        self.assertTrue(f1.is_adjacent_to(Fraction(2, 3)))  
-        self.assertFalse(f1.is_adjacent_to(f2)) 
-        self.assertTrue(f1.is_adjacent_to(Fraction(1, 3)))  
-        self.assertFalse(f2.is_adjacent_to(f3)) 
-        self.assertFalse(f3.is_adjacent_to(f4))
+        f3 = Fraction(1, 3)
+        f4 = Fraction(1, 9)
+        self.assertTrue(f1.is_adjacent_to(f2))
+        self.assertTrue(f2.is_adjacent_to(f3))
+        self.assertFalse(f1.is_adjacent_to(f4))
 
 
 if __name__ == '__main__':
     unittest.main(argv=['first-arg-is-ignored'], exit=False)
+
+
