@@ -162,7 +162,7 @@ class Fraction:
         PRE : it must be be 2 fractions
         POST : the result is the first fraction exponent the second one
         """
-        if not isinstance(self, Fraction) or not isinstance(other, Fraction):
+        if not isinstance(self, Fraction):
             raise TypeError("It must be fractions")
 
         num_part1 = self.numerator
@@ -268,10 +268,50 @@ class Fraction:
         """
         if not isinstance(self, Fraction) or not isinstance(other, Fraction):
             raise TypeError("It must be fractions")
+        
+        reduced_fraction1 = Fraction(self.numerator, self.denominator)
+        reduced_fraction2 = Fraction(other.numerator, other.denominator)
 
-        fract1 = Fraction(abs(self.numerator), abs(self.denominator))
-        fract2 = Fraction(abs(other.numerator), abs(other.denominator))
-        difference = fract1 - fract2
+        diff1 = reduced_fraction1 - reduced_fraction2
+        diff2 = reduced_fraction2 - reduced_fraction1
+
+        return diff1.is_unit() or diff2.is_unit()
         
-        return (difference == 1 or difference == -1)
-        
+
+
+if __name__ == '__main__':
+    fract1 = Fraction(2, 3)
+    fract2 = Fraction(2, 7)
+    fract3 = Fraction(1, 3)
+    fract4 = Fraction(-1, 4)
+    fract5 = Fraction(4, 3)
+    fract6 = Fraction(-1, 3)
+    print("Test __str__: ")
+    print(fract6)
+    print("Test as_mixed_number: ")
+    print(fract5.as_mixed_number())
+    print("Test +: ")
+    print(fract1 + fract2)
+    print("Test -: ")
+    print(fract2 - fract3)
+    print("Test *: ")
+    print(fract3 * fract4)
+    print("Test /: ")
+    print(fract3 / fract4)
+    print("Test ==: ")
+    print(Fraction(4, 6) == fract1)
+    print("Test **: ")
+    print(fract5 ** 3)
+    print("Test float conversion: ")
+    print(float(fract6))
+    print("Test is_zero(): ")
+    print(Fraction(0, 6).is_zero())
+    print("Test is_integer(): ")
+    print(Fraction(8, 4).is_integer())
+    print("Test is_proper(): ")
+    print(Fraction(5, 6).is_proper())
+    print("Test is_unit(): ")
+    print(Fraction(2, 6).is_unit())
+    print("Test is_adjacent_to ")
+    print(fract1.is_adjacent_to(fract3))
+
